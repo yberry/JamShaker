@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Gameplay : MonoSingleton<>
+public class Gameplay : MonoSingleton<Gameplay>
 {
     public float timeBetweenEachPattern = 4;
 
