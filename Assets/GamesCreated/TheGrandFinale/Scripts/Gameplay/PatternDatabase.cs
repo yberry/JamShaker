@@ -5,7 +5,6 @@ using UnityEngine;
 public class PatternDatabase : MonoBehaviour {
 
     [SerializeField]
-    public List<Pattern> patterns;
-
+    public static List<Pattern> patterns;
 
 }
