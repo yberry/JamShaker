@@ -6,9 +6,15 @@ using UnityEngine;
 public class FocusCam : MonoBehaviour {
 
     private Camera cam;
+
     private Vector3 initPosition = Vector3.zero;
     private Quaternion initRotation = Quaternion.identity;
     private float initSize = 5f;
+
+    private Vector3 targetPosition = Vector3.zero;
+    private Quaternion targetRotation = Quaternion.identity;
+    private float targetSize = 5f;
+
     private bool isZooming = false;
 
     private static FocusCam instance = null;
@@ -37,44 +43,50 @@ public class FocusCam : MonoBehaviour {
 
     public void Focus(Transform tr, float size)
     {
-        if (isZooming)
+        if (!isZooming)
         {
-            return;
+            initPosition = transform.position;
+            initRotation = transform.rotation;
+            initSize = cam.orthographicSize;
         }
+        targetPosition = tr.position;
+        targetRotation = tr.rotation;
+        targetSize = size;
 
-        initPosition = transform.position;
-        initRotation = transform.rotation;
-        initSize = cam.orthographicSize;
+        StopAllCoroutines();
 
-        StartCoroutine(Transition(tr, size));
+        StartCoroutine(Transition());
     }
 
-    IEnumerator Transition(Transform tr, float size)
+    IEnumerator Transition()
     {
         isZooming = true;
 
         float time = 0f;
 
-        while (time <= zoomInDuration)
+        if (zoomInDuration > 0f)
         {
-            float coef = time / zoomInDuration;
-            transform.position = Vector3.Lerp(initPosition, tr.position, coef);
-            transform.rotation = Quaternion.Lerp(initRotation, tr.rotation, coef);
-            cam.orthographicSize = Mathf.Lerp(initSize, size, coef);
+            while (time <= zoomInDuration)
+            {
+                float coef = time / zoomInDuration;
+                transform.position = Vector3.Lerp(initPosition, targetPosition, coef);
+                transform.rotation = Quaternion.Lerp(initRotation, targetRotation, coef);
+                cam.orthographicSize = Mathf.Lerp(initSize, targetSize, coef);
 
-            time += Time.deltaTime;
-            yield return null;
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
-        transform.position = tr.position;
-        transform.rotation = tr.rotation;
-        cam.orthographicSize = size;
+        transform.position = targetPosition;
+        transform.rotation = targetRotation;
+        cam.orthographicSize = targetSize;
 
         time = 0f;
 
         while (time <= zoomDuration)
         {
-            transform.position = tr.position;
-            transform.rotation = tr.rotation;
+            transform.position = targetPosition;
+            transform.rotation = targetRotation;
 
             time += Time.deltaTime;
             yield return null;
@@ -82,15 +94,18 @@ public class FocusCam : MonoBehaviour {
 
         time = 0f;
 
-        while (time <= zoomOutDuration)
+        if (zoomOutDuration > 0f)
         {
-            float coef = time / zoomOutDuration;
-            transform.position = Vector3.Lerp(tr.position, initPosition, coef);
-            transform.rotation = Quaternion.Lerp(tr.rotation, initRotation, coef);
-            cam.orthographicSize = Mathf.Lerp(size, initSize, coef);
+            while (time <= zoomOutDuration)
+            {
+                float coef = time / zoomOutDuration;
+                transform.position = Vector3.Lerp(targetPosition, initPosition, coef);
+                transform.rotation = Quaternion.Lerp(targetRotation, initRotation, coef);
+                cam.orthographicSize = Mathf.Lerp(targetSize, initSize, coef);
 
-            time += Time.deltaTime;
-            yield return null;
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
         transform.position = initPosition;
         transform.rotation = initRotation;
