@@ -35,14 +35,14 @@ public class DisplayScore : MonoBehaviour {
     Vector2 targetPosition;
 
     int score = 0;
-    int Score
+    public int Score
     {
         get
         {
             return score;
         }
 
-        set
+        private set
         {
             score = value;
             displayScore.text = "Score : " + score.ToString();
