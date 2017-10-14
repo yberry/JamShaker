@@ -76,12 +76,12 @@ public class Gameplay : MonoSingleton<Gameplay>
         int patternID;
         if (step < PatternDatabase.Instance.sPatterns.Count - 1)
         {
-            int random = Random.Range(0, usedStep.Count);
+            int random = 0;// Random.Range(0, usedStep.Count);
             patternID = usedStep[random];
             usedStep.Remove(patternID);
         }
         else
-            patternID = 3;
+            patternID = 0;//3;
 
         Debug.Log("PATTERN ID : " + patternID);
         PrefabsInstrumentDatabase.Instance.ActivateInstrument(PatternDatabase.Instance.sPatterns[patternID].typeInstrument);    
