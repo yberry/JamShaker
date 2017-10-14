@@ -31,7 +31,7 @@ public class Gameplay : MonoBehaviour
         float tmpTime = 0;
         while (goalReached)
         {
-            if (tmpTime >= 4)
+            if (tmpTime >= timeBetweenEachPattern)
             {
                 LaunchPattern();
                 tmpTime = 0;
@@ -48,8 +48,9 @@ public class Gameplay : MonoBehaviour
 
     public void LaunchPattern()
     {
-        int patternID = Random.Range(0, PatternDatabase.Instance.patterns.Count);
-        //PrefabsInstrumentDatabase.Instance.ActivateInstrument(PatternDatabase.Instance.patterns[patternID]);
+        int patternID = Random.Range(0, PatternDatabase.Instance.sPatterns.Count);
+
+        PrefabsInstrumentDatabase.Instance.ActivateInstrument(PatternDatabase.Instance.sPatterns[patternID].instrumentType);
         
     }
 

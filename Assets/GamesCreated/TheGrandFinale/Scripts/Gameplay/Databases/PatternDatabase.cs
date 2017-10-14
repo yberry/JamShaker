@@ -12,6 +12,6 @@ public struct SPattern
 public class PatternDatabase : MonoSingleton<PatternDatabase> {
 
     [SerializeField]
-    public List<SPattern> patterns;
+    public List<SPattern> sPatterns;
 
 }
