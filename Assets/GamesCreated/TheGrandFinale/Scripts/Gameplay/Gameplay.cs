@@ -84,6 +84,7 @@ public class Gameplay : MonoSingleton<Gameplay>
             patternID = 0;//3;
 
         Debug.Log("PATTERN ID : " + patternID);
+        TargetCamDatabase.Instance.FocusTarget(PatternDatabase.Instance.sPatterns[patternID].typeInstrument);
         PrefabsInstrumentDatabase.Instance.ActivateInstrument(PatternDatabase.Instance.sPatterns[patternID].typeInstrument);    
     }
 

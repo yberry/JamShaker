@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 114542930842397152}
   - component: {fileID: 114123305669194466}
   - component: {fileID: 114209481578663634}
+  - component: {fileID: 114843874069678516}
   m_Layer: 0
   m_Name: Databases
   m_TagString: Untagged
@@ -302,7 +303,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7b23d922efe67468264efe270bcc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instruments: []
+  instruments:
+  - instrumentType: 0
+    GOInstrument: {fileID: 0}
+  - instrumentType: 0
+    GOInstrument: {fileID: 0}
+  - instrumentType: 0
+    GOInstrument: {fileID: 0}
+  - instrumentType: 0
+    GOInstrument: {fileID: 0}
 --- !u!114 &114209481578663634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,3 +374,15 @@ MonoBehaviour:
     id: 2
   - typeInstrument: 1
     id: 3
+--- !u!114 &114843874069678516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1533032477192698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66abed8396603641b0db27f5ad53797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: []
