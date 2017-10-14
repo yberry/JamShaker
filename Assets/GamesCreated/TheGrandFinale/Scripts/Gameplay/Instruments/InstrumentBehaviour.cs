@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class InstrumentBehaviour : MonoBehaviour {
 
 	public Collider _collider;
-	public Sprite _sprite;
 	public float score;
 	public float _beginTime;
 

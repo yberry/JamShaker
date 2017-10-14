@@ -385,4 +385,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66abed8396603641b0db27f5ad53797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets: []
+  targets:
+  - instrument: 0
+    cam: {fileID: 0}
+  - instrument: 0
+    cam: {fileID: 0}
+  - instrument: 0
+    cam: {fileID: 0}
+  - instrument: 0
+    cam: {fileID: 0}

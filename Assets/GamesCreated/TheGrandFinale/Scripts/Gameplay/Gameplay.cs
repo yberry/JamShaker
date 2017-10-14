@@ -15,10 +15,15 @@ public class Gameplay : MonoSingleton<Gameplay>
 
     List<int> usedStep = new List<int>();
 
-    public void Update()
+	private void Start() {
+		StartGame();
+
+	}
+
+	public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-            StartGame();
+        //if (Input.GetKeyDown(KeyCode.A))
+            //StartGame();
     }
 
     public void StartGame()
