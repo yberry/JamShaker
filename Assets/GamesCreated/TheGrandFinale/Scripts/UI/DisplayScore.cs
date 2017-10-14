@@ -18,7 +18,6 @@ public class DisplayScore : MonoBehaviour {
     public Text displayScore;
     public Text displayTemp;
     public Text displayMult;
-    public Text displayMessage;
 
     [Header("Display durations")]
     public float displayDuration = 1f;
@@ -114,25 +113,32 @@ public class DisplayScore : MonoBehaviour {
 
         float time = 0f;
 
-        while (time <= displayDuration)
+        if (displayDuration > 0f)
         {
-            displayTemp.rectTransform.anchoredPosition = Vector2.Lerp(tmpPosition, targetPosition, time / displayDuration);
+            while (time <= displayDuration)
+            {
+                displayTemp.rectTransform.anchoredPosition = Vector2.Lerp(tmpPosition, targetPosition, time / displayDuration);
 
-            time += Time.deltaTime;
-            yield return null;
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
 
         time = 0f;
-        while (time <= fadingDuration)
-        {
-            float a = 1f - time / displayDuration;
-            addColor.a = a;
-            multColor.a = a;
-            displayTemp.color = addColor;
-            displayMult.color = multColor;
 
-            time += Time.deltaTime;
-            yield return null;
+        if (fadingDuration > 0f)
+        {
+            while (time <= fadingDuration)
+            {
+                float a = 1f - time / displayDuration;
+                addColor.a = a;
+                multColor.a = a;
+                displayTemp.color = addColor;
+                displayMult.color = multColor;
+
+                time += Time.deltaTime;
+                yield return null;
+            }
         }
     }
 }
