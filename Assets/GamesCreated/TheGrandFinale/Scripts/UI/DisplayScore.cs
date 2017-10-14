@@ -1,0 +1,138 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class DisplayScore : MonoBehaviour {
+
+    private static DisplayScore instance = null;
+    public static DisplayScore Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    [Header("Displaying Texts")]
+    public Text displayScore;
+    public Text displayTemp;
+    public Text displayMult;
+    public Text displayMessage;
+
+    [Header("Display durations")]
+    public float displayDuration = 1f;
+    public float fadingDuration = 1f;
+
+    Dictionary<int, Color> multColors = new Dictionary<int, Color>()
+    {
+        { 1, Color.red },
+        { 2, Color.yellow },
+        { 3, Color.green },
+        { 5, Color.blue }
+    };
+    Vector2 tmpPosition;
+    Vector2 targetPosition;
+
+    int score = 0;
+    int Score
+    {
+        get
+        {
+            return score;
+        }
+
+        set
+        {
+            score = value;
+            displayScore.text = "Score : " + score.ToString();
+        }
+    }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        tmpPosition = displayTemp.rectTransform.anchoredPosition;
+        targetPosition = tmpPosition + new Vector2(0f, -70f);
+    }
+
+    public void AddScore(float time, int mult)
+    {
+        int tmp = TimeToScore(time);
+        displayTemp.text = "+" + tmp.ToString();
+        displayTemp.rectTransform.anchoredPosition = tmpPosition;
+        displayMult.text = "X" + mult.ToString();
+
+        Score += mult * tmp;
+
+        StopAllCoroutines();
+        StartCoroutine(Fading(mult));
+    }
+
+    int TimeToScore(float time)
+    {
+        if (time < 0.25f)
+        {
+            return 1000;
+        }
+        else if (time < 0.3f)
+        {
+            return (int)(1500f - 2000f * time);
+        }
+        else if (time < 0.5f)
+        {
+            return (int)(1200f - 1000f * time);
+        }
+        else if (time < 0.8f)
+        {
+            return (int)((4600f - 5000f * time) / 3f);
+        }
+        else if (time < 1f)
+        {
+            return (int)(800f - 750f * time);
+        }
+        else
+        {
+            return 50;
+        }
+    }
+
+    IEnumerator Fading(int mult)
+    {
+        Color addColor = Color.white;
+        Color multColor = multColors[mult];
+        displayTemp.color = addColor;
+        displayMult.color = multColor;
+
+        float time = 0f;
+
+        while (time <= displayDuration)
+        {
+            displayTemp.rectTransform.anchoredPosition = Vector2.Lerp(tmpPosition, targetPosition, time / displayDuration);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        time = 0f;
+        while (time <= fadingDuration)
+        {
+            float a = 1f - time / displayDuration;
+            addColor.a = a;
+            multColor.a = a;
+            displayTemp.color = addColor;
+            displayMult.color = multColor;
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+}

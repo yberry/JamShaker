@@ -11,6 +11,19 @@ public class FocusCam : MonoBehaviour {
     private float initSize = 5f;
     private bool isZooming = false;
 
+    private static FocusCam instance = null;
+    public static FocusCam Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = Camera.main.gameObject.AddComponent<FocusCam>();
+            }
+            return instance;
+        }
+    }
+
     [Header("Durations")]
     public float zoomInDuration = 0.5f;
     public float zoomDuration = 2f;
@@ -19,6 +32,7 @@ public class FocusCam : MonoBehaviour {
     void Awake()
     {
         cam = GetComponent<Camera>();
+        instance = this;
     }
 
     public void Focus(Transform tr, float size)
@@ -55,7 +69,16 @@ public class FocusCam : MonoBehaviour {
         transform.rotation = tr.rotation;
         cam.orthographicSize = size;
 
-        yield return new WaitForSeconds(zoomDuration);
+        time = 0f;
+
+        while (time <= zoomDuration)
+        {
+            transform.position = tr.position;
+            transform.rotation = tr.rotation;
+
+            time += Time.deltaTime;
+            yield return null;
+        }
 
         time = 0f;
 

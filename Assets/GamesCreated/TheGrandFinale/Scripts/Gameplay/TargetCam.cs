@@ -6,16 +6,14 @@ using UnityEngine;
 public class TargetCam : MonoBehaviour {
 
     private Camera cam;
-    private FocusCam focus;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
         cam = GetComponent<Camera>();
-        focus = Camera.main.GetComponent<FocusCam>();
 	}
 	
 	public void GetFocus()
     {
-        focus.Focus(transform, cam.orthographicSize);
+        FocusCam.Instance.Focus(transform, cam.orthographicSize);
     }
 }
