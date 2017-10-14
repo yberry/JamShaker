@@ -27,6 +27,7 @@ public class Gameplay : MonoBehaviour
     IEnumerator GameLoop()
     {
         AudioDatabase.Instance.Back.Play();
+        Debug.Log("STarting");
 
         float tmpTime = 0;
         while (goalReached)
@@ -39,11 +40,12 @@ public class Gameplay : MonoBehaviour
             tmpTime += Time.deltaTime;
             totalTime += Time.deltaTime;
             yield return null;
+            AudioDatabase.Instance.Back.Stop();
+            AudioDatabase.Instance.Instrument.Stop();
+            goalReached = false;
+            isPlaying = false;
         }
-        AudioDatabase.Instance.Back.Stop();
-        AudioDatabase.Instance.Instrument.Stop();
-        goalReached = false;
-        isPlaying = false;
+        
     }
 
     public void LaunchPattern()
