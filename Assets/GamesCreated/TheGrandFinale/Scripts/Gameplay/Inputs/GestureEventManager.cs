@@ -22,111 +22,111 @@ public class OnSwipeEvent : GameEvent {
 
 public class GestureEventManager : MonoBehaviour {
 
-	public static GestureEventManager Instance;
+	//public static GestureEventManager Instance;
 
-	private void Start() {
-		if (Instance == null) {
-			Instance = this;
-		}
-	}
+	//private void Start() {
+	//	if (Instance == null) {
+	//		Instance = this;
+	//	}
+	//}
 
-	public int stack = 0;
-	private int squareCount = 0;
-	public Coroutine co;
-	public ESwipeType currentSwipe = ESwipeType.Null;
-	private bool isSwiping = false;
-	public Collider _coll;
+	//public int stack = 0;
+	//private int squareCount = 0;
+	//public Coroutine co;
+	//public ESwipeType currentSwipe = ESwipeType.Null;
+	//private bool isSwiping = false;
+	//public Collider _coll;
 
-	public IEnumerator SwipeTimer() {
-		float timer = 0;
-		while (timer < 1f) {
-			timer += Time.deltaTime;
-			yield return null;
-		}
-		currentSwipe = ESwipeType.Null;
-		squareCount = 0;
-	}
-
-
-
-	public void HandleOnSwipeEvent(OnSwipeEvent e) {
-		Debug.Log(e.numberSwipe);
-	}
-
-	public void Awake() {
-		SimpleGesture.OnTap(CallbackTap);
-	}
-
-	public void CallbackTap() {
-	}
+	//public IEnumerator SwipeTimer() {
+	//	float timer = 0;
+	//	while (timer < 1f) {
+	//		timer += Time.deltaTime;
+	//		yield return null;
+	//	}
+	//	currentSwipe = ESwipeType.Null;
+	//	squareCount = 0;
+	//}
 
 
-	private void Update () {
-		//Handle gestures
 
-		if (Input.touchCount > 0) {
+	//public void HandleOnSwipeEvent(OnSwipeEvent e) {
+	//	Debug.Log(e.numberSwipe);
+	//}
 
-			if (isSwiping == false) {
-				isSwiping = true;
-				RaycastHit hit;
-				Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-				if (Physics.Raycast(ray, out hit)) {
-					if (hit.collider != null) {
-						_coll = hit.collider;
-					}
-				}
-			}
-			if (Input.GetTouch(0).deltaPosition.x > 0) {
-				if (currentSwipe == ESwipeType.LeftSwipe || currentSwipe == ESwipeType.Null) {
-					squareCount++;
-				} else if (currentSwipe != ESwipeType.RightSwipe) {
-					squareCount = 0;
-				}
-				currentSwipe = ESwipeType.RightSwipe;
-			}
-			else if (Input.GetTouch(0).deltaPosition.x < 0) {
-				if (currentSwipe == ESwipeType.RightSwipe || currentSwipe == ESwipeType.Null) {
-					squareCount++;
-				} else if (currentSwipe != ESwipeType.LeftSwipe) {
-					squareCount = 0;
-				}
+	//public void Awake() {
+	//	SimpleGesture.OnTap(CallbackTap);
+	//}
 
-				currentSwipe = ESwipeType.LeftSwipe;
+	//public void CallbackTap() {
+	//}
 
-			}
-			else if (Input.GetTouch(0).deltaPosition.y > 0) {
-				if (currentSwipe != ESwipeType.DownSwipe || currentSwipe == ESwipeType.Null) {
-					squareCount++;
-				} else if (currentSwipe != ESwipeType.UpSwipe) {
-					squareCount = 0;
-				}
 
-				currentSwipe = ESwipeType.UpSwipe;
+	//private void Update () {
+	//	//Handle gestures
 
-			}
-			else if (Input.GetTouch(0).deltaPosition.y < 0) {
-				if (currentSwipe == ESwipeType.UpSwipe || currentSwipe == ESwipeType.Null) {
-					squareCount++;
-				} else if (currentSwipe != ESwipeType.DownSwipe) {
-					squareCount = 0;
-				}
+	//	if (Input.touchCount > 0) {
 
-				currentSwipe = ESwipeType.DownSwipe;
-			}
-			if (squareCount == 4) {
-				Debug.Log("square + " + squareCount);
-				squareCount = 0;
+	//		if (isSwiping == false) {
+	//			isSwiping = true;
+	//			RaycastHit hit;
+	//			Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+	//			if (Physics.Raycast(ray, out hit)) {
+	//				if (hit.collider != null) {
+	//					_coll = hit.collider;
+	//				}
+	//			}
+	//		}
+	//		if (Input.GetTouch(0).deltaPosition.x > 0) {
+	//			if (currentSwipe == ESwipeType.LeftSwipe || currentSwipe == ESwipeType.Null) {
+	//				squareCount++;
+	//			} else if (currentSwipe != ESwipeType.RightSwipe) {
+	//				squareCount = 0;
+	//			}
+	//			currentSwipe = ESwipeType.RightSwipe;
+	//		}
+	//		else if (Input.GetTouch(0).deltaPosition.x < 0) {
+	//			if (currentSwipe == ESwipeType.RightSwipe || currentSwipe == ESwipeType.Null) {
+	//				squareCount++;
+	//			} else if (currentSwipe != ESwipeType.LeftSwipe) {
+	//				squareCount = 0;
+	//			}
 
-				//				Events.Instance.Raise(new ONSQUAREEVENT() { });
-				//				-> stack/4
-			}
-		} else {
-			isSwiping = false;
-			StopCoroutine(SwipeTimer());
-			if (co != null)
-				co = null;
-			currentSwipe = ESwipeType.Null;
-			stack = 0;
-		}
-	}
+	//			currentSwipe = ESwipeType.LeftSwipe;
+
+	//		}
+	//		else if (Input.GetTouch(0).deltaPosition.y > 0) {
+	//			if (currentSwipe != ESwipeType.DownSwipe || currentSwipe == ESwipeType.Null) {
+	//				squareCount++;
+	//			} else if (currentSwipe != ESwipeType.UpSwipe) {
+	//				squareCount = 0;
+	//			}
+
+	//			currentSwipe = ESwipeType.UpSwipe;
+
+	//		}
+	//		else if (Input.GetTouch(0).deltaPosition.y < 0) {
+	//			if (currentSwipe == ESwipeType.UpSwipe || currentSwipe == ESwipeType.Null) {
+	//				squareCount++;
+	//			} else if (currentSwipe != ESwipeType.DownSwipe) {
+	//				squareCount = 0;
+	//			}
+
+	//			currentSwipe = ESwipeType.DownSwipe;
+	//		}
+	//		if (squareCount == 4) {
+	//			Debug.Log("square + " + squareCount);
+	//			squareCount = 0;
+
+	//			//				Events.Instance.Raise(new ONSQUAREEVENT() { });
+	//			//				-> stack/4
+	//		}
+	//	} else {
+	//		isSwiping = false;
+	//		StopCoroutine(SwipeTimer());
+	//		if (co != null)
+	//			co = null;
+	//		currentSwipe = ESwipeType.Null;
+	//		stack = 0;
+	//	}
+	//}
 }
