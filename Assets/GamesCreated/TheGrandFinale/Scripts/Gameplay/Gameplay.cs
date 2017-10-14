@@ -33,6 +33,11 @@ public class Gameplay : MonoSingleton<Gameplay>
     {
         isPlaying = false;
         goalReached = true;
+
+        AudioDatabase.Instance.Back.Stop();
+        AudioDatabase.Instance.Instrument.Stop();
+        goalReached = false;
+        isPlaying = false;
     }
 
     IEnumerator GameLoop()
@@ -61,10 +66,7 @@ public class Gameplay : MonoSingleton<Gameplay>
             totalTime += Time.deltaTime;
             yield return null;
 
-            AudioDatabase.Instance.Back.Stop();
-            AudioDatabase.Instance.Instrument.Stop();
-            goalReached = false;
-            isPlaying = false;
+            
         }
 
         EndGame();
@@ -76,12 +78,19 @@ public class Gameplay : MonoSingleton<Gameplay>
         int patternID;
         if (step < PatternDatabase.Instance.sPatterns.Count - 1)
         {
+            /*
             int random = 0;// Random.Range(0, usedStep.Count);
             patternID = usedStep[random];
             usedStep.Remove(patternID);
+            */
+            patternID = 0;
         }
         else
             patternID = 0;//3;
+
+        Pattern pat = new Pattern();
+        pat.typeInstrument = PatternDatabase.Instance.sPatterns[patternID].typeInstrument;
+        pat.PlayRegionSound();
 
         Debug.Log("PATTERN ID : " + patternID);
         TargetCamDatabase.Instance.FocusTarget(PatternDatabase.Instance.sPatterns[patternID].typeInstrument);
