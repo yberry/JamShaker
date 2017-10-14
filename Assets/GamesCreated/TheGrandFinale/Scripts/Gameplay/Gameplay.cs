@@ -40,6 +40,7 @@ public class Gameplay : MonoBehaviour
             tmpTime += Time.deltaTime;
             totalTime += Time.deltaTime;
             yield return null;
+
             AudioDatabase.Instance.Back.Stop();
             AudioDatabase.Instance.Instrument.Stop();
             goalReached = false;
