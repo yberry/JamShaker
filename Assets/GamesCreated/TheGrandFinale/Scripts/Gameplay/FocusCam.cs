@@ -31,6 +31,7 @@ public class FocusCam : MonoBehaviour {
         initPosition = transform.position;
         initRotation = transform.rotation;
         initSize = cam.orthographicSize;
+
         StartCoroutine(Transition(tr, size));
     }
 
