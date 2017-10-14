@@ -35,7 +35,9 @@ public class Gameplay : MonoBehaviour
 
     public void LaunchPattern()
     {
-       
+        int patternID = Random.Range(0, PatternDatabase.Instance.patterns.Count);
+        PrefabsInstrumentDatabase.Instance.ActivateInstrument(PatternDatabase.Instance.patterns[patternID].typeInstrument);
+        
     }
 
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatternDatabase : MonoBehaviour {
+public class PatternDatabase : MonoSingleton<PatternDatabase> {
 
     [SerializeField]
-    public static List<Pattern> patterns;
+    public List<Pattern> patterns;
 
 }
