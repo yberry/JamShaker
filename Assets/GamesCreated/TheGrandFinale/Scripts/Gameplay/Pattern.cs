@@ -13,18 +13,15 @@ public enum EInstrument
 [System.Serializable]
 public class Pattern
 {
-    public AudioSource soundRegion;
-    public AudioSource soundTrigger;
+    private AudioSource soundRegion;
     public EInstrument typeInstrument;
     public int id;
 
     public void PlayRegionSound()
     {
+        soundRegion = AudioDatabase.Instance.Instrument;
+        int randomID = Random.Range(0, AudioDatabase.Instance.clips.Find(s => s.instrumentType == typeInstrument).audioClips.Count);
+        soundRegion.clip = AudioDatabase.Instance.clips.Find(s => s.instrumentType == typeInstrument).audioClips[randomID];
         soundRegion.Play();
-    }
-
-    public void PlayTriggerSound()
-    {
-        soundTrigger.Play();
     }
 }

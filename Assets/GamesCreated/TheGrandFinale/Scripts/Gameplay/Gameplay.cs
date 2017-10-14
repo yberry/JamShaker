@@ -10,6 +10,12 @@ public class Gameplay : MonoBehaviour
     private float totalTime = 0;
     private bool goalReached = false;
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+            StartGame();
+    }
+
     public void StartGame()
     {
         goalReached = false;
@@ -17,8 +23,11 @@ public class Gameplay : MonoBehaviour
         StartCoroutine(GameLoop());
     }
 
+
     IEnumerator GameLoop()
     {
+        AudioDatabase.Instance.Back.Play();
+
         float tmpTime = 0;
         while (goalReached)
         {
@@ -31,12 +40,16 @@ public class Gameplay : MonoBehaviour
             totalTime += Time.deltaTime;
             yield return null;
         }
+        AudioDatabase.Instance.Back.Stop();
+        AudioDatabase.Instance.Instrument.Stop();
+        goalReached = false;
+        isPlaying = false;
     }
 
     public void LaunchPattern()
     {
         int patternID = Random.Range(0, PatternDatabase.Instance.patterns.Count);
-        PrefabsInstrumentDatabase.Instance.ActivateInstrument(PatternDatabase.Instance.patterns[patternID].typeInstrument);
+        //PrefabsInstrumentDatabase.Instance.ActivateInstrument(PatternDatabase.Instance.patterns[patternID]);
         
     }
 
