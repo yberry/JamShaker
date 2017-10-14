@@ -20,4 +20,12 @@ public class PrefabsInstrumentDatabase : MonoSingleton<PrefabsInstrumentDatabase
             instruments[i].GOInstrument.SetActive(instruments[i].instrumentType == instru);
         }
     }
+
+    public void DeactivateAllInstrument()
+    {
+        for (int i = 0; i < instruments.Count; i++)
+        {
+            instruments[i].GOInstrument.SetActive(false);
+        }
+    }
 }

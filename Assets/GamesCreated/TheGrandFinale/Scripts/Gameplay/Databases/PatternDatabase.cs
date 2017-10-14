@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PatternDatabase : MonoSingleton<PatternDatabase> {
 
     [SerializeField]
-    public List<Pattern> patterns;
+    public List<Pattern> sPatterns;
 
 }
