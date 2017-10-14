@@ -2,33 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ESwipeType {
-	HorizontalSwipe,
-	VerticlaSwipe,
-	RoundSwipe,
-	LeftSwipe,
-	RightSwipe,
-	UpSwipe,
-	DownSwipe,
-	Null
-}
-
-public class OnSwipeEvent : GameEvent {
-	public Collider _collider = null;
-	public ESwipeType _swipeType;
-	public EInstrument _instrument;
-	public int numberSwipe = 0;
-}
-
-public class GestureEventManager : MonoBehaviour {
-
-	public static GestureEventManager Instance;
-
-	private void Start() {
-		if (Instance == null) {
-			Instance = this;
-		}
-	}
+public class CircleSwipe : MonoBehaviour {
 
 	public int stack = 0;
 	private int squareCount = 0;
@@ -47,21 +21,7 @@ public class GestureEventManager : MonoBehaviour {
 		squareCount = 0;
 	}
 
-
-
-	public void HandleOnSwipeEvent(OnSwipeEvent e) {
-		Debug.Log(e.numberSwipe);
-	}
-
-	public void Awake() {
-		SimpleGesture.OnTap(CallbackTap);
-	}
-
-	public void CallbackTap() {
-	}
-
-
-	private void Update () {
+	private void Update() {
 		//Handle gestures
 
 		if (Input.touchCount > 0) {
@@ -83,8 +43,7 @@ public class GestureEventManager : MonoBehaviour {
 					squareCount = 0;
 				}
 				currentSwipe = ESwipeType.RightSwipe;
-			}
-			else if (Input.GetTouch(0).deltaPosition.x < 0) {
+			} else if (Input.GetTouch(0).deltaPosition.x < 0) {
 				if (currentSwipe == ESwipeType.RightSwipe || currentSwipe == ESwipeType.Null) {
 					squareCount++;
 				} else if (currentSwipe != ESwipeType.LeftSwipe) {
@@ -93,8 +52,7 @@ public class GestureEventManager : MonoBehaviour {
 
 				currentSwipe = ESwipeType.LeftSwipe;
 
-			}
-			else if (Input.GetTouch(0).deltaPosition.y > 0) {
+			} else if (Input.GetTouch(0).deltaPosition.y > 0) {
 				if (currentSwipe != ESwipeType.DownSwipe || currentSwipe == ESwipeType.Null) {
 					squareCount++;
 				} else if (currentSwipe != ESwipeType.UpSwipe) {
@@ -103,8 +61,7 @@ public class GestureEventManager : MonoBehaviour {
 
 				currentSwipe = ESwipeType.UpSwipe;
 
-			}
-			else if (Input.GetTouch(0).deltaPosition.y < 0) {
+			} else if (Input.GetTouch(0).deltaPosition.y < 0) {
 				if (currentSwipe == ESwipeType.UpSwipe || currentSwipe == ESwipeType.Null) {
 					squareCount++;
 				} else if (currentSwipe != ESwipeType.DownSwipe) {
@@ -114,7 +71,6 @@ public class GestureEventManager : MonoBehaviour {
 				currentSwipe = ESwipeType.DownSwipe;
 			}
 			if (squareCount == 4) {
-				Debug.Log("square + " + squareCount);
 				squareCount = 0;
 
 				//				Events.Instance.Raise(new ONSQUAREEVENT() { });
@@ -129,4 +85,5 @@ public class GestureEventManager : MonoBehaviour {
 			stack = 0;
 		}
 	}
+
 }
