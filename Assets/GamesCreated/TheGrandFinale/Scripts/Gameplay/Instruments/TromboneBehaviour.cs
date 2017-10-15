@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class TromboneBehaviour : InstrumentBehaviour {
 
+	public Animator _anim;
+
     private void OnEnable()
     {
+		_anim.SetBool("activate", true);
         Activate();
         Events.Instance.AddListener<OnSwipeEvent>(HandleSwipeEvent);
     }
 
     private void OnDisable()
     {
-        Deactivate();
+		_anim.SetBool("activate", false);
+		Deactivate();
         Events.Instance.RemoveListener<OnSwipeEvent>(HandleSwipeEvent);
     }
 
