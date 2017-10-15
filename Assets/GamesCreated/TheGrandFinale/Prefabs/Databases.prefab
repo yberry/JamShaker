@@ -306,11 +306,9 @@ MonoBehaviour:
   instruments:
   - instrumentType: 0
     GOInstrument: {fileID: 0}
-  - instrumentType: 0
+  - instrumentType: 1
     GOInstrument: {fileID: 0}
-  - instrumentType: 0
-    GOInstrument: {fileID: 0}
-  - instrumentType: 0
+  - instrumentType: 2
     GOInstrument: {fileID: 0}
 --- !u!114 &114209481578663634
 MonoBehaviour:
@@ -388,9 +386,7 @@ MonoBehaviour:
   targets:
   - instrument: 0
     cam: {fileID: 0}
-  - instrument: 0
+  - instrument: 1
     cam: {fileID: 0}
-  - instrument: 0
-    cam: {fileID: 0}
-  - instrument: 0
+  - instrument: 2
     cam: {fileID: 0}

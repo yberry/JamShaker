@@ -15,12 +15,21 @@ public class ThroatBehaviour : InstrumentBehaviour {
 	}
 
 	public void HandleSwipeEvent(OnSwipeEvent e) {
-		//si le collider est bon et le type de swipe est bon par rapport a instrumentparts[currentinstrumentpart]
-//		if (e._collider == InstrumentParts[currentPartID] && e._swipeType == InstrumentParts[currentPartID]._partRequireGesture) {
-			StopCoroutine(ActiveTimer());
-			//validate gesture || up score
-//		}
-	}
+
+        if (InstrumentParts[currentPartID]._SwipeStackTmp.Count > 0 && InstrumentParts[currentPartID]._SwipeStackTmp[0] == e._swipeType)
+        {
+            InstrumentParts[currentPartID]._SwipeStackTmp.RemoveAt(0);
+        }
+
+
+        if (InstrumentParts[currentPartID]._SwipeStackTmp.Count == 0)
+        {
+            StopCoroutine(ActiveTimer());
+            InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
+            Debug.Log("test");
+            //validate gesture || up score
+        }
+    }
 
 	public override void Activate() {
 		base.Activate();
