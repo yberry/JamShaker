@@ -655,7 +655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenEachPattern: 2
   BeginButton: {fileID: 2095108888}
-  endGameTime: 10
+  endGameTime: 60
   actualLevel: 1
 --- !u!4 &280247882
 Transform:

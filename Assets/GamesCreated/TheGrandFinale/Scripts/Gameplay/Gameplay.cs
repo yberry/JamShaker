@@ -19,12 +19,6 @@ public class Gameplay : MonoSingleton<Gameplay>
 
     List<int> usedStep = new List<int>();
 
-	public void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.A))
-            //StartGame();
-    }
-
     public void StartGame()
     {
 		Debug.Log("test");
@@ -33,6 +27,7 @@ public class Gameplay : MonoSingleton<Gameplay>
         goalReached = false;
         isPlaying = true;
         StartCoroutine(GameLoop());
+        DisplayScore.Instance.Reset();
     }
 
     public void ReachedGoal()
