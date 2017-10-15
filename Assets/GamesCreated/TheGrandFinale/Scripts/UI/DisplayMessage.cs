@@ -110,7 +110,8 @@ public class DisplayMessage : MonoBehaviour
     {
         if (drummerCoroutine != null)
             StopCoroutine(drummerCoroutine);
-        StartCoroutine(DrummerResult(success));
+        drummerCoroutine = StartCoroutine(DrummerResult(success));
+
     }
 
     IEnumerator Blink(Text displayMessage, int state)
