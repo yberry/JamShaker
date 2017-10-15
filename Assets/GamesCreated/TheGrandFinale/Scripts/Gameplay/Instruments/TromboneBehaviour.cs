@@ -34,10 +34,10 @@ public class TromboneBehaviour : InstrumentBehaviour {
 
         if (InstrumentParts[currentPartID]._SwipeStackTmp.Count == 0)
         {
-            StopCoroutine(ActiveTimer());
+			DisplayScore.Instance.AddScore(_beginTime, EInstrument.TROMBONE);
+			StopCoroutine(ActiveTimer());
             InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
             Next();
-            DisplayScore.Instance.AddScore(_beginTime, EInstrument.TROMBONE);
             //validate gesture || up score
         }
     }
@@ -46,6 +46,7 @@ public class TromboneBehaviour : InstrumentBehaviour {
     {
         base.Activate();
         _beginTime = 0;
+		StartCoroutine(ActiveTimer());
     }
 
     public override void Deactivate()

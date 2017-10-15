@@ -30,12 +30,11 @@ public class ThroatBehaviour : InstrumentBehaviour {
 
         if (InstrumentParts[currentPartID]._SwipeStackTmp.Count == 0)
         {
-            StopCoroutine(ActiveTimer());
+			DisplayScore.Instance.AddScore(_beginTime, EInstrument.VOICE);
+
+			StopCoroutine(ActiveTimer());
             InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
             Next();
-
-            DisplayScore.Instance.AddScore(_beginTime, EInstrument.VOICE);
-            //validate gesture || up score
         }
     }
 

@@ -30,10 +30,10 @@ public class GuitareBehaviour : InstrumentBehaviour {
 
 
 		if (InstrumentParts[currentPartID]._SwipeStackTmp.Count == 0) {
+			DisplayScore.Instance.AddScore(_beginTime, EInstrument.GUITAR);
 			StopCoroutine(ActiveTimer());
 			InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
             Next();
-            DisplayScore.Instance.AddScore(_beginTime, EInstrument.GUITAR);
             //validate gesture || up score
         }
 	}
@@ -41,15 +41,15 @@ public class GuitareBehaviour : InstrumentBehaviour {
 	public override void Activate() {
 		base.Activate();
 		_beginTime = 0;
+		StartCoroutine(ActiveTimer());
 	}
 
 	public override void Deactivate() {
 		base.Deactivate();
-		_beginTime = 0;
 	}
 
 	IEnumerator ActiveTimer() {
-		while (_beginTime <= 1.5f) {
+		while (true) {
 			_beginTime += Time.deltaTime;
 			yield return null;
 		}
