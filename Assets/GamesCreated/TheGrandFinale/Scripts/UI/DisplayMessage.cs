@@ -78,28 +78,28 @@ public class DisplayMessage : MonoBehaviour {
     public void Display(MiniGame miniGame, int state)
     {
         string message = messages[miniGame][state - 1];
-        texts[miniGame].text = message;
+        Text displayMessage = texts[miniGame];
+        displayMessage.text = message;
 
         StopAllCoroutines();
-        StartCoroutine(Blink(miniGame, state));
+        StartCoroutine(Blink(displayMessage, state));
         if (miniGame == MiniGame.Batterie)
         {
             drummerCoroutine = StartCoroutine(Drummer(state));
         }
     }
 
-    public void EndDrummer()
+    public void EndDrummer(bool success)
     {
-        drummerFeedback.text = "";
         StopCoroutine(drummerCoroutine);
+        StartCoroutine(DrummerResult(success));
     }
 
-    IEnumerator Blink(MiniGame miniGame, int state)
+    IEnumerator Blink(Text displayMessage, int state)
     {
         float time = 0f;
         Color color = colors[state - 1];
-        texts[miniGame].transform.localScale = Vector3.one;
-        Text displayMessage = texts[miniGame];
+        displayMessage.transform.localScale = Vector3.one;
         displayMessage.color = color;
 
         while (time <= displayDuration)
@@ -136,5 +136,26 @@ public class DisplayMessage : MonoBehaviour {
             time += Time.deltaTime;
             yield return null;
         }
+    }
+
+    IEnumerator DrummerResult(bool success)
+    {
+        float time = 0f;
+        Color color = success ? Color.green : Color.red;
+        drummerFeedback.color = color;
+        drummerFeedback.text = success ? "PERFECT" : "BOOOOOOOOH";
+
+        while (time <= displayDuration)
+        {
+            if (success)
+            {
+                drummerFeedback.color = Color.Lerp(color, Color.white, (Mathf.Sin(freqBlink * time) + 1f) * 0.5f);
+            }
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        drummerFeedback.text = "";
     }
 }
