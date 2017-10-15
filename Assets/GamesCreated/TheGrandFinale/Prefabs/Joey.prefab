@@ -875,6 +875,7 @@ MonoBehaviour:
   - {fileID: 114342901188310322}
   - {fileID: 114612722010167108}
   currentPartID: -1
+  animator: {fileID: 95427107122987086}
 --- !u!114 &114661975210976236
 MonoBehaviour:
   m_ObjectHideFlags: 1

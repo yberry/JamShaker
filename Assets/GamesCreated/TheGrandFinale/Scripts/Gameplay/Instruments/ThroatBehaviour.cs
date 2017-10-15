@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ThroatBehaviour : InstrumentBehaviour {
 
-    Animator animator;
+    public Animator animator ;
 
 	private void OnEnable() {
-        animator = GetComponent<Animator>();
+
         animator.SetBool("Activate", true);
 
         Activate();

@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class GuitareBehaviour : InstrumentBehaviour {
 
-	private void OnEnable() {
-		Activate();
+    public Animator animator;
+
+    private void OnEnable() {
+        animator.SetBool("Activate", true);
+        Activate();
 		Events.Instance.AddListener<OnSwipeEvent>(HandleSwipeEvent);
 	}
 
 	private void OnDisable() {
-		Deactivate();
+        animator.SetBool("Activate", false);
+        Deactivate();
 		Events.Instance.RemoveListener<OnSwipeEvent>(HandleSwipeEvent);
 	}
 
