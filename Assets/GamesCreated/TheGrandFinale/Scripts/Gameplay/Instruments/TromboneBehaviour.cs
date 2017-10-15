@@ -33,7 +33,7 @@ public class TromboneBehaviour : InstrumentBehaviour {
             StopCoroutine(ActiveTimer());
             InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
             Next();
-            DisplayScore.Instance.AddScore(_beginTime, 1);
+            DisplayScore.Instance.AddScore(_beginTime);
             //validate gesture || up score
         }
     }

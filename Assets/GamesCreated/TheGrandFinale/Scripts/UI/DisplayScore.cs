@@ -23,6 +23,7 @@ public class DisplayScore : MonoBehaviour {
     [Header("Display durations")]
     public float displayDuration = 1f;
     public float fadingDuration = 1f;
+	private int currentMultiplier = 1;
 
     Dictionary<int, Color> multColors = new Dictionary<int, Color>()
     {
@@ -64,9 +65,23 @@ public class DisplayScore : MonoBehaviour {
         targetPosition = tmpPosition + new Vector2(0f, -70f);
     }
 
-    public void AddScore(float time, int mult)
+    public void AddScore(float time)
     {
         int tmp = TimeToScore(time);
+		int mult = currentMultiplier;
+		if (time <= .5f)
+			mult += 1;
+		else if (time > 1)
+			mult--;
+
+		if (mult < 1)
+			mult = 1;
+		if (mult == 3)
+			mult = 4;
+		if (mult > 5)
+			mult = 5;
+		currentMultiplier = mult;
+
         displayTemp.text = "+" + tmp.ToString();
         displayTemp.rectTransform.anchoredPosition = tmpPosition;
         displayMult.text = "X" + mult.ToString();

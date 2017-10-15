@@ -24,7 +24,7 @@ public class TestScore : MonoBehaviour {
 
     public void Send()
     {
-        DisplayScore.Instance.AddScore(Temps, mult);
+        DisplayScore.Instance.AddScore(Temps);
     }
 
     public void SendMessage()
