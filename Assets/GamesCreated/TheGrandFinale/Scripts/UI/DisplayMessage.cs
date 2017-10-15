@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisplayMessage : MonoBehaviour {
+public class DisplayMessage : MonoBehaviour
+{
 
     private static DisplayMessage instance = null;
     public static DisplayMessage Instance
@@ -79,20 +80,20 @@ public class DisplayMessage : MonoBehaviour {
 
     public void Display(EInstrument miniGame, int state)
     {
-		if (state <= 5)
-			state = 1;
-		else if (state <= 10)
-			state = 2;
-		else if (state <= 19)
-			state = 3;
-		else
-			state = 4;
+        if (state <= 5)
+            state = 1;
+        else if (state <= 10)
+            state = 2;
+        else if (state <= 19)
+            state = 3;
+        else
+            state = 4;
 
-		string message = messages[miniGame][state - 1];
+        string message = messages[miniGame][state - 1];
         Text displayMessage = texts[miniGame];
         displayMessage.text = message;
 
-        
+
         if (coroutines[miniGame] != null)
         {
             StopCoroutine(coroutines[miniGame]);
@@ -107,7 +108,8 @@ public class DisplayMessage : MonoBehaviour {
 
     public void EndDrummer(bool success)
     {
-        StopCoroutine(drummerCoroutine);
+        if (drummerCoroutine != null)
+            StopCoroutine(drummerCoroutine);
         StartCoroutine(DrummerResult(success));
     }
 
@@ -123,12 +125,12 @@ public class DisplayMessage : MonoBehaviour {
             switch (state)
             {
                 case 3:
-                    displayMessage.transform.localScale = Mathf.Lerp(1f, amplitude, (Mathf.Sin(freqScale * time) + 1f) * 0.5f) * Vector3.one;
-                    break;
+                displayMessage.transform.localScale = Mathf.Lerp(1f, amplitude, (Mathf.Sin(freqScale * time) + 1f) * 0.5f) * Vector3.one;
+                break;
 
                 case 4:
-                    displayMessage.color = Color.Lerp(color, Color.white, (Mathf.Sin(freqBlink * time) + 1f) * 0.5f);
-                    break;
+                displayMessage.color = Color.Lerp(color, Color.white, (Mathf.Sin(freqBlink * time) + 1f) * 0.5f);
+                break;
             }
 
             time += Time.deltaTime;
