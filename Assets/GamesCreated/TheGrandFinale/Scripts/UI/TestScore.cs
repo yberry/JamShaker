@@ -34,6 +34,6 @@ public class TestScore : MonoBehaviour {
 
     public void EndDrummer()
     {
-        DisplayMessage.Instance.EndDrummer();
+        DisplayMessage.Instance.EndDrummer(false);
     }
 }
