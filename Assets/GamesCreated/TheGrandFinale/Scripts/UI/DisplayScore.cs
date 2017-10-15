@@ -18,6 +18,7 @@ public class DisplayScore : MonoBehaviour {
     public Text displayScore;
     public Text displayTemp;
     public Text displayMult;
+    public Text displayWord;
 
     [Header("Display durations")]
     public float displayDuration = 1f;
@@ -80,27 +81,33 @@ public class DisplayScore : MonoBehaviour {
     {
         if (time < 0.25f)
         {
+            displayWord.text = "PERFECT";
             return 1000;
         }
         else if (time < 0.3f)
         {
+            displayWord.text = "PERFECT";
             return (int)(1500f - 2000f * time);
         }
         else if (time < 0.5f)
         {
+            displayWord.text = "GOOD";
             return (int)(1200f - 1000f * time);
         }
         else if (time < 0.8f)
         {
+            displayWord.text = "FASTER";
             return (int)((4600f - 5000f * time) / 3f);
         }
-        else if (time < 1f)
+        else if (time <= 1f)
         {
+            displayWord.text = "TOO SLOW";
             return (int)(800f - 750f * time);
         }
         else
         {
-            return 50;
+            displayWord.text = "MISSED!";
+            return 0;
         }
     }
 
@@ -110,6 +117,7 @@ public class DisplayScore : MonoBehaviour {
         Color multColor = multColors[mult];
         displayTemp.color = addColor;
         displayMult.color = multColor;
+        displayWord.color = addColor;
 
         float time = 0f;
 
@@ -135,6 +143,7 @@ public class DisplayScore : MonoBehaviour {
                 multColor.a = a;
                 displayTemp.color = addColor;
                 displayMult.color = multColor;
+                displayWord.color = addColor;
 
                 time += Time.deltaTime;
                 yield return null;

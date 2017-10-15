@@ -29,6 +29,11 @@ public class TestScore : MonoBehaviour {
 
     public void SendMessage()
     {
-        DisplayMessage.Instance.Display(MiniGame.GorgeProfonde, index + 1);
+        DisplayMessage.Instance.Display(MiniGame.Batterie, index + 1);
+    }
+
+    public void EndDrummer()
+    {
+        DisplayMessage.Instance.EndDrummer();
     }
 }

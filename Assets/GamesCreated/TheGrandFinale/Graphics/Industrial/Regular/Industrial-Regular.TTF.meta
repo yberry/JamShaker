@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 187dad1971b1fae44a27b2750178bef3
+timeCreated: 1508036295
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Industrial
+  fontNames:
+  - Industrial
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0da9325d340b7774fb1bc0f1a80ee327, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
