@@ -11,6 +11,9 @@ public class HorizontalSwipe : MonoBehaviour {
 	public Collider _coll;
 
     private Vector3 previousPosition = Vector3.zero;
+	private Vector3 firstPosition = Vector3.zero;
+
+	public float _minDistance; 
 
 	public IEnumerator SwipeTimer() {
 		float timer = 0;
@@ -57,7 +60,11 @@ public class HorizontalSwipe : MonoBehaviour {
         if (Input.GetMouseButton(0))
         {
 
-            if (previousPosition != Vector3.zero && Input.mousePosition.x > previousPosition.x)
+			if (firstPosition == Vector3.zero)
+				firstPosition = Input.mousePosition;
+
+
+			if (firstPosition != Vector3.zero && Input.mousePosition.x - firstPosition.x > _minDistance)
             {
                 if (co == null && currentSwipe != ESwipeType.RightSwipe)
                 {
@@ -69,7 +76,7 @@ public class HorizontalSwipe : MonoBehaviour {
                     Events.Instance.Raise(new OnSwipeEvent() { _collider = _coll, numberSwipe = ++stack, _swipeType = ESwipeType.RightSwipe });
                 }
             }
-            if (previousPosition != Vector3.zero && Input.mousePosition.x < previousPosition.x)
+            if (firstPosition != Vector3.zero && firstPosition.x - Input.mousePosition.x > _minDistance)
             {
                 if (co == null && currentSwipe != ESwipeType.LeftSwipe)
                 {

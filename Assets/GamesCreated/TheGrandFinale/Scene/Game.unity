@@ -698,6 +698,7 @@ MonoBehaviour:
   stack: 0
   currentSwipe: 7
   _coll: {fileID: 0}
+  _minDistance: 100
 --- !u!114 &280247885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,6 +713,7 @@ MonoBehaviour:
   stack: 0
   currentSwipe: 7
   _coll: {fileID: 0}
+  _minDistance: 100
 --- !u!114 &280247886
 MonoBehaviour:
   m_ObjectHideFlags: 0

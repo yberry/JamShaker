@@ -10,7 +10,10 @@ public class VerticalSwipe : MonoBehaviour {
 	private bool isSwiping = false;
 	public Collider _coll;
 
+	public float _minDistance;
+
     private Vector3 previousPosition = Vector3.zero;
+	private Vector3 firstPosition = Vector3.zero;
 
     public IEnumerator SwipeTimer() {
 		float timer = 0;
@@ -68,10 +71,10 @@ public class VerticalSwipe : MonoBehaviour {
 
         if (Input.GetMouseButton(0))
         {
-            
             if (isSwiping == false)
             {
                 isSwiping = true;
+
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit))
@@ -82,19 +85,24 @@ public class VerticalSwipe : MonoBehaviour {
                     }
                 }
             }
-            if (previousPosition != Vector3.zero && Input.mousePosition.y > previousPosition.y)
+
+			if (firstPosition == Vector3.zero)
+				firstPosition = Input.mousePosition;
+
+			if (firstPosition != Vector3.zero && Input.mousePosition.y - firstPosition.y > _minDistance)
             {
-                if (co == null && currentSwipe != ESwipeType.UpSwipe)
+				if (co == null && currentSwipe != ESwipeType.UpSwipe)
                 {
                     StartCoroutine(SwipeTimer());
                 }
                 if (currentSwipe == ESwipeType.DownSwipe || currentSwipe == ESwipeType.Null)
                 {
-                    currentSwipe = ESwipeType.UpSwipe;
+					firstPosition = Vector3.zero;
+					currentSwipe = ESwipeType.UpSwipe;
                     Events.Instance.Raise(new OnSwipeEvent() { _collider = _coll, numberSwipe = ++stack, _swipeType = ESwipeType.UpSwipe });
                 }
             }
-            if (previousPosition != Vector3.zero && Input.mousePosition.y < previousPosition.y)
+            if (firstPosition != Vector3.zero && firstPosition.y - Input.mousePosition.y > _minDistance)
             {
                 if (co == null && currentSwipe != ESwipeType.DownSwipe)
                 {
@@ -102,7 +110,8 @@ public class VerticalSwipe : MonoBehaviour {
                 }
                 if (currentSwipe == ESwipeType.UpSwipe || currentSwipe == ESwipeType.Null)
                 {
-                    currentSwipe = ESwipeType.DownSwipe;
+					firstPosition = Vector3.zero;
+					currentSwipe = ESwipeType.DownSwipe;
                     Events.Instance.Raise(new OnSwipeEvent() { _collider = _coll, numberSwipe = ++stack, _swipeType = ESwipeType.DownSwipe });
                 }
             }
@@ -110,6 +119,7 @@ public class VerticalSwipe : MonoBehaviour {
         }
         else
         {
+			firstPosition = Vector3.zero;
             isSwiping = false;
             StopCoroutine(SwipeTimer());
             if (co != null)
