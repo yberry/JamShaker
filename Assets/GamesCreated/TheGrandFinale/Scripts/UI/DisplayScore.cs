@@ -175,7 +175,6 @@ public class DisplayScore : MonoBehaviour {
 
     public void Reset()
     {
-        score = 0;
-        displayScore.text = "0";
+        Score = 0;
     }
 }
