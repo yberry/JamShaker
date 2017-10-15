@@ -17,8 +17,12 @@ public class InstrumentBehaviour : MonoBehaviour {
 	public virtual void Activate() {
 
         int x = 0;
-        if (randomStartPart)
-         x = Random.Range(0, InstrumentParts.Count);
+		if (randomStartPart)
+			if (InstrumentParts.Count > 0) {
+				do {
+					x = Random.Range(0, InstrumentParts.Count);
+				} while (x == currentPartID);
+			}
 		for (int i = 0; i < InstrumentParts.Count; i++) {
 			if (i == x) {
 				InstrumentParts[i].gameObject.SetActive(true);

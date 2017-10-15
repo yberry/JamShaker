@@ -21,6 +21,7 @@ public class GuitareBehaviour : InstrumentBehaviour {
 
 		if (InstrumentParts[currentPartID]._SwipeStackTmp.Count > 0 && InstrumentParts[currentPartID]._SwipeStackTmp[0] == e._swipeType) {
 			InstrumentParts[currentPartID]._SwipeStackTmp.RemoveAt(0);
+			InstrumentParts[currentPartID].ValidateArrow();
 		}
 
 
