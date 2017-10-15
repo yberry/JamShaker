@@ -1293,6 +1293,8 @@ MonoBehaviour:
   - {fileID: 534847333}
   - {fileID: 731056076}
   currentPartID: -1
+  particleSystemPrefab: {fileID: 1256015622619628, guid: 55462d52912e3b745a93185a6d838eba,
+    type: 2}
 --- !u!1 &589667620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,12 +1681,27 @@ Prefab:
     - target: {fileID: 224150716745605912, guid: 5906d26dcdd108644b0aa6e3d4a27853,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -954.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224150716745605912, guid: 5906d26dcdd108644b0aa6e3d4a27853,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -1966.3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114697690471230338, guid: 5906d26dcdd108644b0aa6e3d4a27853,
+        type: 2}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 224150716745605912, guid: 5906d26dcdd108644b0aa6e3d4a27853,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224150716745605912, guid: 5906d26dcdd108644b0aa6e3d4a27853,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5906d26dcdd108644b0aa6e3d4a27853, type: 2}
