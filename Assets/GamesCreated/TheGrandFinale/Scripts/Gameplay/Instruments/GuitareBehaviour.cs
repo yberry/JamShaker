@@ -27,7 +27,7 @@ public class GuitareBehaviour : InstrumentBehaviour {
 		if (InstrumentParts[currentPartID]._SwipeStackTmp.Count == 0) {
 			StopCoroutine(ActiveTimer());
 			InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
-			Debug.Log("test");
+            Next();
 			//validate gesture || up score
 		}
 	}

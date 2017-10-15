@@ -35,4 +35,9 @@ public class InstrumentBehaviour : MonoBehaviour {
 		}
 	}
 
+    public void Next()
+    {
+        Activate();
+    }
+
 }
