@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum MiniGame
-{
-    GorgeProfonde,
-    Guitare,
-    Trombone,
-    Batterie
-}
-
 public class DisplayMessage : MonoBehaviour {
 
     private static DisplayMessage instance = null;
@@ -40,10 +32,12 @@ public class DisplayMessage : MonoBehaviour {
         { EInstrument.VOICE, new string[] { "\"SINGER\"", "DIVA", "AWESOME", "GENIOUS" } },
         { EInstrument.GUITAR, new string[] { "\"GUITARIST\"", "COOL KID", "ROCKSTAR", "HENDRIX" } },
         { EInstrument.TROMBONE, new string[] { "BLOW DRIER", "GOODENOUGH", "BLOW MASTER", "EPIC TROMBONE GUY" } },
-        { EInstrument.DRUM, new string[] { "\"DRUMMER3\"", "\"AWESOMAN\"", "RITHMAHOLIC", "DRUM KING" } }
+        { EInstrument.DRUM, new string[] { "\"DRUMMER\"", "\"AWESOMAN\"", "RITHMAHOLIC", "DRUM KING" } }
     };
 
     Dictionary<EInstrument, Text> texts;
+
+    Dictionary<EInstrument, Coroutine> coroutines;
 
     List<Color> colors = new List<Color>()
     {
@@ -73,6 +67,14 @@ public class DisplayMessage : MonoBehaviour {
             { EInstrument.TROMBONE, tromboneMessage },
             { EInstrument.DRUM, batterieMessage }
         };
+
+        coroutines = new Dictionary<EInstrument, Coroutine>()
+        {
+            { EInstrument.VOICE, null },
+            { EInstrument.GUITAR, null },
+            { EInstrument.TROMBONE, null },
+            { EInstrument.DRUM, null }
+        };
     }
 
     public void Display(EInstrument miniGame, int state)
@@ -90,8 +92,13 @@ public class DisplayMessage : MonoBehaviour {
         Text displayMessage = texts[miniGame];
         displayMessage.text = message;
 
-        StopAllCoroutines();
-        StartCoroutine(Blink(displayMessage, state));
+        
+        if (coroutines[miniGame] != null)
+        {
+            StopCoroutine(coroutines[miniGame]);
+        }
+        coroutines[miniGame] = StartCoroutine(Blink(displayMessage, state));
+
         if (miniGame == EInstrument.DRUM)
         {
             drummerCoroutine = StartCoroutine(Drummer(state));
