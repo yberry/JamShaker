@@ -29,8 +29,9 @@ public class GuitareBehaviour : InstrumentBehaviour {
 			StopCoroutine(ActiveTimer());
 			InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
             Next();
-			//validate gesture || up score
-		}
+            DisplayScore.Instance.AddScore(_beginTime, 1);
+            //validate gesture || up score
+        }
 	}
 
 	public override void Activate() {
