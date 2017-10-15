@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class ThroatBehaviour : InstrumentBehaviour {
 
+    Animator animator;
+
 	private void OnEnable() {
-		Activate();
+        animator = GetComponent<Animator>();
+        animator.SetBool("Activate", true);
+
+        Activate();
 		Events.Instance.AddListener<OnSwipeEvent>(HandleSwipeEvent);
 	}
 
 	private void OnDisable() {
-		Deactivate();
+        animator.SetBool("Activate", false);
+        Deactivate();
 		Events.Instance.RemoveListener<OnSwipeEvent>(HandleSwipeEvent);
 	}
 
@@ -34,6 +40,7 @@ public class ThroatBehaviour : InstrumentBehaviour {
     }
 
 	public override void Activate() {
+        
 		base.Activate();
 		_beginTime = 0;
 	}
