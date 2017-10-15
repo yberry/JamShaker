@@ -11,6 +11,8 @@ public class Gameplay : MonoSingleton<Gameplay>
     private float totalTime = 0;
     private bool goalReached = false;
 
+    public int actualLevel = 1;
+
     private int step = 0;
 
     List<int> usedStep = new List<int>();
@@ -55,7 +57,7 @@ public class Gameplay : MonoSingleton<Gameplay>
         float tmpTime = 0;
         while (!goalReached)
         {
-            if (tmpTime >= timeBetweenEachPattern)
+            if (tmpTime >= TimeManager.Instance.getActualSeconds())
             {
                 PrefabsInstrumentDatabase.Instance.DeactivateAllInstrument();
                 LaunchPattern();
@@ -95,7 +97,8 @@ public class Gameplay : MonoSingleton<Gameplay>
 
         Pattern pat = new Pattern();
         pat.typeInstrument = PatternDatabase.Instance.sPatterns[patternID].typeInstrument;
-        pat.PlayRegionSound();
+        if (pat.typeInstrument != EInstrument.DRUM)
+            pat.PlayRegionSound();
 
         Debug.Log("PATTERN ID : " + patternID);
         TargetCamDatabase.Instance.FocusTarget(PatternDatabase.Instance.sPatterns[patternID].typeInstrument);

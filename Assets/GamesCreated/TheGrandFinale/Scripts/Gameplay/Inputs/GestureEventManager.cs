@@ -10,6 +10,7 @@ public enum ESwipeType {
 	RightSwipe,
 	UpSwipe,
 	DownSwipe,
+    Tap,
 	Null
 }
 
