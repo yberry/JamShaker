@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class LerpAlpha : MonoBehaviour {
 
     SpriteRenderer sprite;
-    Color32 basicColor;
+    public Color32 basicColor = new Color32(255, 255, 255, 255);
+    public Color32 endcolor = new Color32(255, 255, 255, 0);
+    public float time = 0.25f;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +24,6 @@ public class LerpAlpha : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        sprite.color = Color.Lerp(new Color32(255, 255, 255, 255), new Color32(255, 255, 255, 0), Mathf.PingPong(Time.time, 0.25f));
+        sprite.color = Color.Lerp(basicColor, endcolor , Mathf.PingPong(Time.time, time));
     }
 }
