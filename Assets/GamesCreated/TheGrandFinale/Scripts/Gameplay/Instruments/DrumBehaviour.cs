@@ -9,6 +9,7 @@ public class DrumBehaviour : InstrumentBehaviour
     public List<GameObject> FX = new List<GameObject>();
 
     private List<int> idFXActive = new List<int>();
+	public GameObject particleSystemPrefab;
 
     private bool firstPhase = true;
 	private bool positiveScore = false;
@@ -45,6 +46,7 @@ public class DrumBehaviour : InstrumentBehaviour
         {
             if (firstPhase && e._collider == InstrumentParts[0]._instrumentPartCollider)
             {
+				GameObject.Instantiate(particleSystemPrefab, new Vector3(0, 0, -100) + Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
                 PlaySound();
                 DisplayScore.Instance.AddScore(0.95f, EInstrument.DRUM);
 				//IMPLEMENT SCORING
@@ -59,7 +61,8 @@ public class DrumBehaviour : InstrumentBehaviour
 
             if (!firstPhase && e._collider == InstrumentParts[1]._instrumentPartCollider)
             {
-                DisplayScore.Instance.AddScore(0.95f, EInstrument.DRUM);
+				GameObject.Instantiate(particleSystemPrefab, new Vector3(0, 0, -100) + Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+				DisplayScore.Instance.AddScore(0.95f, EInstrument.DRUM);
                 PlayFinalSound();
 				//IMPLEMENT SCORING
 				positiveScore = true;
@@ -89,9 +92,8 @@ public class DrumBehaviour : InstrumentBehaviour
     public override void Activate()
     {
         base.Activate();
-        _beginTime = 0;
-
-        StartCoroutine(Timer());
+		_beginTime = 0;
+		StartCoroutine(Timer());
     }
 
     public override void Deactivate()

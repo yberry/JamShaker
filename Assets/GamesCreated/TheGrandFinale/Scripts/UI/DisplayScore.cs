@@ -68,6 +68,7 @@ public class DisplayScore : MonoBehaviour {
 
     public void AddScore(float time, EInstrument instrument)
     {
+		Debug.Log(time);
         int tmp = TimeToScore(time);
 		int mult = currentMultiplier;
 		if (time <= .5f) {
@@ -176,5 +177,6 @@ public class DisplayScore : MonoBehaviour {
     public void Reset()
     {
         Score = 0;
+		currentMultiplier = 0;
     }
 }

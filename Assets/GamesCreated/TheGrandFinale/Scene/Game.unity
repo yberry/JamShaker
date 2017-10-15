@@ -430,7 +430,6 @@ MonoBehaviour:
   BeginButton: {fileID: 2095108888}
   endGameTime: 64
   actualLevel: 1
-  maxScore: 150000
 --- !u!4 &280247882
 Transform:
   m_ObjectHideFlags: 0
@@ -1483,6 +1482,8 @@ MonoBehaviour:
   - {fileID: 983872965}
   - {fileID: 2028035086}
   - {fileID: 2068335018}
+  particleSystemPrefab: {fileID: 1256015622619628, guid: 55462d52912e3b745a93185a6d838eba,
+    type: 2}
 --- !u!1 &589667620
 GameObject:
   m_ObjectHideFlags: 0
