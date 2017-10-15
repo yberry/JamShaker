@@ -24,12 +24,12 @@ public class TestScore : MonoBehaviour {
 
     public void Send()
     {
-        DisplayScore.Instance.AddScore(Temps);
+        DisplayScore.Instance.AddScore(Temps, EInstrument.DRUM);
     }
 
     public void SendMessage()
     {
-        DisplayMessage.Instance.Display(MiniGame.Batterie, index + 1);
+        DisplayMessage.Instance.Display(EInstrument.DRUM, index + 1);
     }
 
     public void EndDrummer()

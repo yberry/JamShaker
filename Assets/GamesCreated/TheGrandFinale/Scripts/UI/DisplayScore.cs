@@ -24,6 +24,7 @@ public class DisplayScore : MonoBehaviour {
     public float displayDuration = 1f;
     public float fadingDuration = 1f;
 	private int currentMultiplier = 1;
+	private int nolimitMultiplier;
 
     Dictionary<int, Color> multColors = new Dictionary<int, Color>()
     {
@@ -65,19 +66,22 @@ public class DisplayScore : MonoBehaviour {
         targetPosition = tmpPosition + new Vector2(0f, -70f);
     }
 
-    public void AddScore(float time)
+    public void AddScore(float time, EInstrument instrument)
     {
         int tmp = TimeToScore(time);
 		int mult = currentMultiplier;
-		if (time <= .5f)
+		if (time <= .5f) {
 			mult += 1;
-		else if (time > 1)
+			nolimitMultiplier++;
+		} else if (time > 1) {
 			mult--;
+			nolimitMultiplier++;
+		}
 
 		if (mult < 1)
 			mult = 1;
-		if (mult == 3)
-			mult = 4;
+		if (nolimitMultiplier < 1)
+			nolimitMultiplier = 1;
 		if (mult > 5)
 			mult = 5;
 		currentMultiplier = mult;
@@ -88,8 +92,11 @@ public class DisplayScore : MonoBehaviour {
 
         Score += mult * tmp;
 
+		DisplayMessage.Instance.Display(instrument, nolimitMultiplier);
+
         StopAllCoroutines();
-        StartCoroutine(Fading(mult));
+		if (mult != 4)
+	        StartCoroutine(Fading(mult));
     }
 
     int TimeToScore(float time)

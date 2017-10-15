@@ -35,15 +35,15 @@ public class DisplayMessage : MonoBehaviour {
     public float amplitude = 2f;
     public float freqBlink = 10f;
 
-    Dictionary<MiniGame, string[]> messages = new Dictionary<MiniGame, string[]>()
+    Dictionary<EInstrument, string[]> messages = new Dictionary<EInstrument, string[]>()
     {
-        { MiniGame.GorgeProfonde, new string[] { "\"SINGER\"", "DIVA", "AWESOME", "GENIOUS" } },
-        { MiniGame.Guitare, new string[] { "\"GUITARIST\"", "COOL KID", "ROCKSTAR", "HENDRIX" } },
-        { MiniGame.Trombone, new string[] { "BLOW DRIER", "GOODENOUGH", "BLOW MASTER", "EPIC TROMBONE GUY" } },
-        { MiniGame.Batterie, new string[] { "\"DRUMMER3\"", "\"AWESOMAN\"", "RITHMAHOLIC", "DRUM KING" } }
+        { EInstrument.VOICE, new string[] { "\"SINGER\"", "DIVA", "AWESOME", "GENIOUS" } },
+        { EInstrument.GUITAR, new string[] { "\"GUITARIST\"", "COOL KID", "ROCKSTAR", "HENDRIX" } },
+        { EInstrument.TROMBONE, new string[] { "BLOW DRIER", "GOODENOUGH", "BLOW MASTER", "EPIC TROMBONE GUY" } },
+        { EInstrument.DRUM, new string[] { "\"DRUMMER3\"", "\"AWESOMAN\"", "RITHMAHOLIC", "DRUM KING" } }
     };
 
-    Dictionary<MiniGame, Text> texts;
+    Dictionary<EInstrument, Text> texts;
 
     List<Color> colors = new List<Color>()
     {
@@ -66,24 +66,33 @@ public class DisplayMessage : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        texts = new Dictionary<MiniGame, Text>()
+        texts = new Dictionary<EInstrument, Text>()
         {
-            { MiniGame.GorgeProfonde, gorgeProfondeMessage },
-            { MiniGame.Guitare, guitareMessage },
-            { MiniGame.Trombone, tromboneMessage },
-            { MiniGame.Batterie, batterieMessage }
+            { EInstrument.VOICE, gorgeProfondeMessage },
+            { EInstrument.GUITAR, guitareMessage },
+            { EInstrument.TROMBONE, tromboneMessage },
+            { EInstrument.DRUM, batterieMessage }
         };
     }
 
-    public void Display(MiniGame miniGame, int state)
+    public void Display(EInstrument miniGame, int state)
     {
-        string message = messages[miniGame][state - 1];
+		if (state <= 5)
+			state = 1;
+		else if (state <= 10)
+			state = 2;
+		else if (state <= 19)
+			state = 3;
+		else
+			state = 4;
+
+		string message = messages[miniGame][state - 1];
         Text displayMessage = texts[miniGame];
         displayMessage.text = message;
 
         StopAllCoroutines();
         StartCoroutine(Blink(displayMessage, state));
-        if (miniGame == MiniGame.Batterie)
+        if (miniGame == EInstrument.DRUM)
         {
             drummerCoroutine = StartCoroutine(Drummer(state));
         }

@@ -10,17 +10,14 @@ public class Gameplay : MonoSingleton<Gameplay>
     private bool isPlaying = false;
     private float totalTime = 0;
     private bool goalReached = false;
+	public GameObject BeginButton;
+	public float endGameTime= 60;
 
     public int actualLevel = 1;
 
     private int step = 0;
 
     List<int> usedStep = new List<int>();
-
-	private void Start() {
-		StartGame();
-
-	}
 
 	public void Update()
     {
@@ -30,6 +27,7 @@ public class Gameplay : MonoSingleton<Gameplay>
 
     public void StartGame()
     {
+		BeginButton.SetActive(false);
         usedStep = Enumerable.Range(0, 3).ToList();
         goalReached = false;
         isPlaying = true;
@@ -45,6 +43,8 @@ public class Gameplay : MonoSingleton<Gameplay>
         AudioDatabase.Instance.Instrument.Stop();
         goalReached = false;
         isPlaying = false;
+
+		BeginButton.SetActive(true);
     }
 
     IEnumerator GameLoop()
@@ -71,6 +71,11 @@ public class Gameplay : MonoSingleton<Gameplay>
             }
             tmpTime += Time.deltaTime;
             totalTime += Time.deltaTime;
+			if (totalTime > endGameTime) {
+				ReachedGoal();
+				break;
+			}
+
             yield return null;
 
             

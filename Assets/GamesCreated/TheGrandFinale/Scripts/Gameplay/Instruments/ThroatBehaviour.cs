@@ -28,7 +28,7 @@ public class ThroatBehaviour : InstrumentBehaviour {
             InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
             Next();
 
-            DisplayScore.Instance.AddScore(_beginTime);
+            DisplayScore.Instance.AddScore(_beginTime, EInstrument.VOICE);
             //validate gesture || up score
         }
     }

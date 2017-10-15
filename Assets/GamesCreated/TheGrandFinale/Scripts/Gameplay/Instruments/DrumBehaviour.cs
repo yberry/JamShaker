@@ -39,13 +39,13 @@ public class DrumBehaviour : InstrumentBehaviour
             if (firstPhase && e._collider == InstrumentParts[0]._instrumentPartCollider)
             {
                 PlaySound();
-                DisplayScore.Instance.AddScore(0.8f);
+                DisplayScore.Instance.AddScore(0.95f, EInstrument.DRUM);
                 //IMPLEMENT SCORING
             }
 
             if (!firstPhase && e._collider == InstrumentParts[1]._instrumentPartCollider)
             {
-                DisplayScore.Instance.AddScore(0.3f);
+                DisplayScore.Instance.AddScore(0.95f, EInstrument.DRUM);
                 PlayFinalSound();
                 //IMPLEMENT SCORING
             }

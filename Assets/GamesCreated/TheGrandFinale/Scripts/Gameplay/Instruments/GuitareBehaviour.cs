@@ -29,7 +29,7 @@ public class GuitareBehaviour : InstrumentBehaviour {
 			StopCoroutine(ActiveTimer());
 			InstrumentParts[currentPartID]._SwipeStackTmp = new List<ESwipeType>(InstrumentParts[currentPartID]._SwipeStack);
             Next();
-            DisplayScore.Instance.AddScore(_beginTime);
+            DisplayScore.Instance.AddScore(_beginTime, EInstrument.GUITAR);
             //validate gesture || up score
         }
 	}
