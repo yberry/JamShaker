@@ -7,9 +7,11 @@ public class DrumBehaviour : InstrumentBehaviour
     List<AudioSource> sources = new List<AudioSource>();
 
     private bool firstPhase = true;
+	private bool positiveScore = false;
 
     private void OnEnable()
     {
+		positiveScore = false;
         Activate();
         Events.Instance.AddListener<OnSwipeEvent>(HandleSwipeEvent);
         firstPhase = true;
@@ -40,15 +42,17 @@ public class DrumBehaviour : InstrumentBehaviour
             {
                 PlaySound();
                 DisplayScore.Instance.AddScore(0.95f, EInstrument.DRUM);
-                //IMPLEMENT SCORING
+				//IMPLEMENT SCORING
+				positiveScore = true;
             }
 
             if (!firstPhase && e._collider == InstrumentParts[1]._instrumentPartCollider)
             {
                 DisplayScore.Instance.AddScore(0.95f, EInstrument.DRUM);
                 PlayFinalSound();
-                //IMPLEMENT SCORING
-            }
+				//IMPLEMENT SCORING
+				positiveScore = true;
+			}
         }
     }
 
@@ -75,13 +79,15 @@ public class DrumBehaviour : InstrumentBehaviour
 
     public override void Deactivate()
     {
-
         base.Deactivate();
         _beginTime = 0;
         StopCoroutine(Timer());
-    }
 
-    IEnumerator Timer()
+		DisplayMessage.Instance.EndDrummer(positiveScore);
+
+	}
+
+	IEnumerator Timer()
     {
         float time = 0;
 

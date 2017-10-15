@@ -27,6 +27,7 @@ public class Gameplay : MonoSingleton<Gameplay>
 
     public void StartGame()
     {
+		Debug.Log("test");
 		BeginButton.SetActive(false);
         usedStep = Enumerable.Range(0, 3).ToList();
         goalReached = false;
@@ -39,6 +40,7 @@ public class Gameplay : MonoSingleton<Gameplay>
         isPlaying = false;
         goalReached = true;
 
+		StopCoroutine(GameLoop());
         AudioDatabase.Instance.Back.Stop();
         AudioDatabase.Instance.Instrument.Stop();
         goalReached = false;
@@ -55,8 +57,10 @@ public class Gameplay : MonoSingleton<Gameplay>
 
 
         float tmpTime = 0;
+		totalTime = 0;
         while (!goalReached)
         {
+			Debug.Log("2");
             if (tmpTime >= TimeManager.Instance.getActualSeconds())
             {
                 PrefabsInstrumentDatabase.Instance.DeactivateAllInstrument();
