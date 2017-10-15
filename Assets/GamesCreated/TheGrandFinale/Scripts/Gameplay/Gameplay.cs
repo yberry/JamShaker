@@ -20,8 +20,6 @@ public class Gameplay : MonoSingleton<Gameplay>
 	public float endGameTime= 60;
 
     public int actualLevel = 1;
-
-    public int maxScore;
     private int actualScore;
 
     private int step = 0;

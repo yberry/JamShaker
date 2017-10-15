@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DrumBehaviour : InstrumentBehaviour
 {
     List<AudioSource> sources = new List<AudioSource>();
+    public List<GameObject> FX = new List<GameObject>();
+
+    private List<int> idFXActive = new List<int>();
 
     private bool firstPhase = true;
 	private bool positiveScore = false;
 
     private void OnEnable()
     {
-		positiveScore = false;
+        idFXActive = Enumerable.Range(0, FX.Count).ToList();
+        positiveScore = false;
         Activate();
         Events.Instance.AddListener<OnSwipeEvent>(HandleSwipeEvent);
         firstPhase = true;
@@ -44,6 +49,12 @@ public class DrumBehaviour : InstrumentBehaviour
                 DisplayScore.Instance.AddScore(0.95f, EInstrument.DRUM);
 				//IMPLEMENT SCORING
 				positiveScore = true;
+
+                if (FX.Count > 0)
+                {
+                    int random = Random.Range(0, FX.Count);
+                    StartCoroutine(AddEffect(random));
+                }
             }
 
             if (!firstPhase && e._collider == InstrumentParts[1]._instrumentPartCollider)
@@ -52,7 +63,13 @@ public class DrumBehaviour : InstrumentBehaviour
                 PlayFinalSound();
 				//IMPLEMENT SCORING
 				positiveScore = true;
-			}
+
+                if (FX.Count > 0)
+                {
+                    int random = Random.Range(0, FX.Count);
+                    StartCoroutine(AddEffect(random));
+                }
+            }
         }
     }
 
@@ -101,5 +118,20 @@ public class DrumBehaviour : InstrumentBehaviour
         InstrumentParts[1].gameObject.SetActive(true);
 
         firstPhase = false;
+    }
+
+    IEnumerator AddEffect(int id)
+    {
+
+        float time = 0;
+
+        FX[id].SetActive(true);
+        while (time < 0.5f)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+        idFXActive.Add(id);
+        FX[id].SetActive(false);
     }
 }
